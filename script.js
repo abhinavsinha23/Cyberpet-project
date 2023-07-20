@@ -4,7 +4,8 @@ const pet = document.getElementsByName("pet");
 const bottomSection = document.getElementById("bottom-section");
 const petName = document.getElementById("petName");
 const subtitle = document.getElementById("subtitle");
-const gameBegins = document.getElementById("gameBegins");
+const petProfile = document.getElementById("petProfile");
+const statbars = document.querySelectorAll(".stat-bar");
 const healthDecreaseRate = 5;
 const funDecreaseRate = 3;
 const fitnessDecreaseRate = 2;
@@ -63,7 +64,7 @@ createBtn.addEventListener("click", () => {
                 showImage(i);
             }
         }
-        gameBegins.style.display = "block"
+        
         let health = 100;
         let fun = 100;
         let fitness = 100;
@@ -81,27 +82,62 @@ createBtn.addEventListener("click", () => {
 
         // Function to update the stat values and bars every 10 seconds
         function decreaseStats() {
-        health -= healthDecreaseRate;
-        if (health < 0) health = 0;
-        healthBar.value = health;
+            health -= healthDecreaseRate;
+            if (health < 0) {
+                health = 0;
+                subtitle.textContent = `${petName.value} died`
+                for (i = 0; i < statbars.length; i++) {
+                    statbars[i].remove();
+                }
+                return;
+            }
+            healthBar.value = health;
 
-        fun -= funDecreaseRate;
-        if (fun < 0) fun = 0;
-        funBar.value = fun;
+            fun -= funDecreaseRate;
+            if (fun < 0) {
+                fun = 0;
+                subtitle.textContent = `${petName.value} is bored`
+                for (i = 0; i < statbars.length; i++) {
+                    statbars[i].remove();
+                }
+                return;
+            }
+            funBar.value = fun;
 
-        fitness -= fitnessDecreaseRate;
-        if (fitness < 0) fitness = 0;
-        fitnessBar.value = fitness;
+            fitness -= fitnessDecreaseRate;
+            if (fitness < 0) {
+                fitness = 0;
+                subtitle.textContent = `${petName.value} is unfit`
+                for (i = 0; i < statbars.length; i++) {
+                    statbars[i].remove();
+                }
+                return;
+            }
+            fitnessBar.value = fitness;
 
-        foodWater -= foodWaterDecreaseRate;
-        if (foodWater < 0) foodWater = 0;
-        foodWaterBar.value = foodWater;
+            foodWater -= foodWaterDecreaseRate;
+            if (foodWater < 0) {
+                foodWater = 0;
+                subtitle.textContent = `${petName.value} died from starvation/dehydration`
+                for (i = 0; i < statbars.length; i++) {
+                    statbars[i].remove();
+                }
+                return;
+            }
+            foodWaterBar.value = foodWater;
 
-        energy -= energyDecreaseRate;
-        if (energy < 0) energy = 0;
-        energyBar.value = energy;
+            energy -= energyDecreaseRate;
+            if (energy < 0) {
+                energy = 0;
+                subtitle.textContent = `${petName.value} has no energy`
+                for (i = 0; i < statbars.length; i++) {
+                    statbars[i].remove();
+                }
+                return;
+            }
+            energyBar.value = energy;
 
-        // Add other stats' decrease rate update here, if applicable
+            // Add other stats' decrease rate update here, if applicable
         }
 
         // Get references to the progress bars and buttons
@@ -151,6 +187,7 @@ createBtn.addEventListener("click", () => {
 
 function showImage(index) {
     bottomSection.style.display = "none";
+    petProfile.style.display = "flex";
     images[index].style.display = "block";
 }
 
