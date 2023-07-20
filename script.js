@@ -144,7 +144,7 @@ createBtn.addEventListener("click", () => {
         updateDecreaseRates();
 
         // Start decreasing stats after 10 seconds
-        setInterval(decreaseStats, 3000);
+        setInterval(decreaseStats, 400);
 
             }
         })
