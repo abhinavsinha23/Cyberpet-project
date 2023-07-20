@@ -5,11 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyberpet: An Interactive JS Game</title>
+    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
   <div class="container">
-    <h1>Cyberpet: An Interactive JS Game</h1>
-    
+    <div class="top-section">
+      <h1>Cyberpet: An Interactive JS Game</h1>
+      <h2 id = "subtitle">Choose your Cyberpet!</h2>
+    </div>
+    <div id="bottom-section">
+      <input type="radio" id="dog" name="pet"  value="Dog">
+      <label for="dog">Dog</label><br>
+      <input type="radio" id="cat" name ="pet" value="Cat">
+      <label for="cat">Cat</label><br>
+      <input type="radio" id="lizard" name="pet" value="Lizard">
+      <label for="lizard">Lizard</label><br>
+      <input type="radio" id="bird" name ="pet" value="Bird">
+      <label for="bird">Bird</label><br>
+      <p>Name: </p>
+      <input type="text" id="petName"><br>
+      <button id = "createBtn">Create pet</button>
+    </div>
+    <div id="imageContainer">
+        <img id = "dogImg" src="./dog.jpg">
+        <img id = "catImg" src = "./cat.jpg">
+        <img id = "lizardImg" src = "./lizard.jpg">
+        <img id = "birdImg" src = "./bird.jpg">
+    </div>
+    <div id ="gameBegins">
+      <div style="margin-left: 45%; margin-top: 5%;" class="stat-container">
+        <div class="stat-bar">
+          <label for="healthBar">Health:</label>
+          <progress style="accent-color: green; height: 20px;" id="healthBar" max="100" value="100"></progress>
+          <button id="healthBtn">Increase</button>
+          <span class="decrease-rate" id="healthDecreaseRate"></span>
+        </div>
+        <div class="stat-bar">
+          <label for="funBar">Fun:</label>
+          <progress style="height: 20px;"  id="funBar" max="100" value="100"></progress>
+          <button id="funBtn">Increase</button>
+          <span class="decrease-rate" id="funDecreaseRate"></span>
+        </div>
+        <div class="stat-bar">
+          <label for="fitnessBar">Fitness:</label>
+          <progress style="accent-color: red; height: 20px;" id="fitnessBar" max="100" value="100"></progress>
+          <button id="fitnessBtn">Increase</button>
+          <span class="decrease-rate" id="fitnessDecreaseRate"></span>
+        </div>
+        <div class="stat-bar">
+          <label for="foodWaterBar">Food & Water:</label>
+          <progress style="accent-color: blue; height: 20px;" id="foodWaterBar" max="100" value="100"></progress>
+          <button id="foodWaterBtn">Increase</button>
+          <span class="decrease-rate" id="foodWaterDecreaseRate"></span>
+        </div>
+        <div class="stat-bar">
+          <label for="energyBar">Energy:</label>
+          <progress style="accent-color: purple; height: 20px;" id="energyBar" max="100" value="100"></progress>
+          <button id="energyBtn">Increase</button>
+          <span class="decrease-rate" id="energyDecreaseRate"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
+<script src = "script.js"></script>
