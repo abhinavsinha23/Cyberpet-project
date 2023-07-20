@@ -12,6 +12,8 @@ const fitnessDecreaseRate = 2;
 const foodWaterDecreaseRate = 4;
 const energyDecreaseRate = 1;
 
+let timer;
+
 const healthBar = document.getElementById('healthBar');
 const healthBtn = document.getElementById('healthBtn');
 
@@ -82,6 +84,7 @@ createBtn.addEventListener("click", () => {
 
         // Function to update the stat values and bars every 10 seconds
         function decreaseStats() {
+            console.log("run")
             health -= healthDecreaseRate;
             if (health < 0) {
                 health = 0;
@@ -89,6 +92,7 @@ createBtn.addEventListener("click", () => {
                 for (i = 0; i < statbars.length; i++) {
                     statbars[i].remove();
                 }
+                clearInterval(timer);
                 return;
             }
             healthBar.value = health;
@@ -100,6 +104,7 @@ createBtn.addEventListener("click", () => {
                 for (i = 0; i < statbars.length; i++) {
                     statbars[i].remove();
                 }
+                clearInterval(timer);
                 return;
             }
             funBar.value = fun;
@@ -111,6 +116,7 @@ createBtn.addEventListener("click", () => {
                 for (i = 0; i < statbars.length; i++) {
                     statbars[i].remove();
                 }
+                clearInterval(timer);
                 return;
             }
             fitnessBar.value = fitness;
@@ -122,6 +128,7 @@ createBtn.addEventListener("click", () => {
                 for (i = 0; i < statbars.length; i++) {
                     statbars[i].remove();
                 }
+                clearInterval(timer);
                 return;
             }
             foodWaterBar.value = foodWater;
@@ -133,6 +140,7 @@ createBtn.addEventListener("click", () => {
                 for (i = 0; i < statbars.length; i++) {
                     statbars[i].remove();
                 }
+                clearInterval(timer);
                 return;
             }
             energyBar.value = energy;
@@ -141,7 +149,6 @@ createBtn.addEventListener("click", () => {
         }
 
         // Get references to the progress bars and buttons
-        
 
         // Add event listeners to the buttons to increase the values
         healthBtn.addEventListener('click', () => {
@@ -178,9 +185,9 @@ createBtn.addEventListener("click", () => {
 
         // Run the function to update the decrease rates on page load
         updateDecreaseRates();
-
+        
         // Start decreasing stats after 10 seconds
-        setInterval(decreaseStats, 400);
+        timer = setInterval(decreaseStats, 400);
 
             }
         })
