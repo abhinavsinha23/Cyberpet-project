@@ -1,0 +1,326 @@
+<html>
+
+<head>
+
+  <title>Jumping Game</title>
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      padding: 0;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      height: 100vh;
+
+      background-color: #f0f0f0;
+
+    }
+
+
+
+
+    #character {
+
+      width: 50px;
+
+      height: 50px;
+
+      background-color: blue;
+
+      position: absolute;
+
+      bottom: 0;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      transition: bottom 0.2s;
+
+    }
+
+
+
+
+    .obstacle {
+
+      width: 30px;
+
+      height: 5px;
+
+      background-color: red;
+
+      position: absolute;
+
+      bottom: 0;
+
+    }
+
+
+
+
+    #score {
+
+      position: absolute;
+
+      top: 10px;
+
+      right: 10px;
+
+      font-size: 24px;
+
+      font-weight: bold;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="character"></div>
+
+  <div id="score">Score: 0</div>
+
+
+
+
+  <script>
+
+    const character = document.getElementById('character');
+
+    const scoreDisplay = document.getElementById('score');
+
+    let jumping = false;
+
+    let score = 0;
+
+    let obstacles = [];
+
+
+
+
+    document.addEventListener('keydown', function (event) {
+
+      if (event.key === 'p' || event.key === 'P') {
+
+        if (!jumping) {
+
+          jumping = true;
+
+          jump();
+
+        }
+
+      }
+
+    });
+
+
+
+
+    function jump() {
+
+      let position = 0;
+
+      const jumpInterval = setInterval(() => {
+
+        if (position === 150) {
+
+          clearInterval(jumpInterval);
+
+          falling();
+
+        } else {
+
+          position += 10;
+
+          character.style.bottom = position + 'px';
+
+        }
+
+      }, 30); // Reduced interval time to 10 ms
+
+    }
+
+
+
+
+    function falling() {
+
+      let position = 150;
+
+      const fallInterval = setInterval(() => {
+
+        if (position === 0) {
+
+          clearInterval(fallInterval);
+
+          jumping = false;
+
+        } else {
+
+          position -= 10;
+
+          character.style.bottom = position + 'px';
+
+        }
+
+      }, 30); // Reduced interval time to 10 ms
+
+    }
+
+
+
+
+    function createObstacle() {
+
+      const obstacle = document.createElement('div');
+
+      obstacle.classList.add('obstacle');
+
+      document.body.appendChild(obstacle); // Append the obstacle to the body
+
+
+
+
+      let obstaclePosition = window.innerWidth; // Set initial position to the right side of the window
+
+      let randomHeight = Math.floor(Math.random() * 80) + 10;
+
+      obstacle.style.left = obstaclePosition + 'px';
+
+      obstacle.style.height = randomHeight + 'px';
+
+
+
+
+      return obstacle;
+
+    }
+
+
+
+
+    function moveObstacle() {
+
+      obstacles.forEach(obstacle => {
+
+        let obstaclePosition = parseInt(obstacle.style.left);
+
+        obstaclePosition -= 5; // Move the obstacle towards the left
+
+        obstacle.style.left = obstaclePosition + 'px';
+
+
+
+
+        checkCollision(obstacle, obstaclePosition);
+
+      });
+
+
+
+
+      obstacles = obstacles.filter(obstacle => {
+
+        const obstaclePosition = parseInt(obstacle.style.left);
+
+        return obstaclePosition > -30;
+
+      });
+
+
+
+
+      if (obstacles.length < 5) {
+
+        obstacles.push(createObstacle());
+
+      }
+
+    }
+
+
+
+
+    function checkCollision(obstacle, obstaclePosition) {
+
+      const characterPosition = parseInt(character.style.bottom);
+
+      const characterLeft = parseInt(character.style.left);
+
+      const characterRight = characterLeft + 50;
+
+      const obstacleTop = window.innerHeight - parseInt(obstacle.style.height);
+
+      const obstacleBottom = window.innerHeight;
+
+
+
+
+      if (characterPosition <= obstacleBottom && characterPosition >= obstacleTop && obstaclePosition <= characterRight && obstaclePosition >= characterLeft) {
+
+        clearInterval(obstacleInterval);
+
+        alert('Game Over! Your final score: ' + score);
+
+        score = 0;
+
+        scoreDisplay.textContent = 'Score: 0';
+
+        obstacles.forEach(obstacle => obstacle.remove());
+
+        obstacles = [];
+
+        generateObstacles();
+
+      }
+
+    }
+
+
+
+
+    function generateObstacles() {
+
+      obstacles = [];
+
+      obstacles.push(createObstacle());
+
+
+
+
+      obstacleInterval = setInterval(moveObstacle, 10);
+
+    }
+
+
+
+
+    generateObstacles(); // Start generating obstacles
+
+    setInterval(() => {
+
+      score += 5;
+
+      scoreDisplay.textContent = 'Score: ' + score;
+
+    }, 2000); // Score increment interval
+
+  </script>
+
+</body>
+
+</html>
+
+

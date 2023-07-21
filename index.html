@@ -9,12 +9,23 @@
     
 </head>
 <body>
+  <audio id = "8bitMusic"><source src = "8bit-Adventure.mp3"></audio>
+  <audio id = "gameOver"><source src = "game-over.wav"></audio>
   <div class="container">
     <div class="top-section">
       <h1>Cyberpet: An Interactive JS Game</h1>
       <h2 id = "subtitle">Choose your Cyberpet!</h2>
     </div>
     <div id="bottom-section">
+      <!-- <div class = "difficulty">
+        <h3 id = "difficultyLevel">Choose your difficulty level</h2>
+        <input type="radio" id = "high" name = "difficulty" value = "High">
+        <label for="high">High</label>
+        <input type="radio" id = "medium" name = "difficulty" value = "Medium">
+        <label for="medium">Medium</label>
+        <input type="radio" id = "low" name = "difficulty" value = "Low">
+        <label for="low">Low</label>
+      </div> -->
       <input type="radio" id="dog" name="pet"  value="Dog">
       <label for="dog">Dog</label><br>
       <input type="radio" id="cat" name ="pet" value="Cat">
@@ -67,6 +78,11 @@
             <span class="decrease-rate" id="energyDecreaseRate"></span>
           </div>
         </div>
+      </div>
+      <div id = "options">
+        <button id = "retryBtn">Start again?</button>
+        <button onclick = "window.location.href='./index2.html'">Play Fetch game?</button>
+        <button onclick = "window.location.href='./index3.html'">Play Jumping game?</button>
       </div>
     </div>
   </div>

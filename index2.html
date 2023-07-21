@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Circle Animation</title>
+
+  <style>
+
+
+
+
+    body {
+
+      margin: 0;
+
+      overflow: hidden;
+
+    }
+
+
+
+
+    .circle {
+
+      width: 100px;
+
+      height: 100px;
+
+      background-color: red;
+
+      border-radius: 50%;
+
+      position: absolute;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+    }
+
+
+
+
+    .circle-left {
+
+      left: 100px;
+
+    }
+
+
+
+
+    .circle-right {
+
+      right: 100px;
+
+    }
+
+
+
+
+    .green-circle {
+
+      width: 50px;
+
+      height: 50px;
+
+      background-color: green;
+
+      border-radius: 50%;
+
+      position: absolute;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+    }
+
+
+
+
+    .big-circle {
+
+      width: 100px;
+
+      height: 100px;
+
+      background-color: blue;
+
+      border-radius: 50%;
+
+      position: absolute;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+    }
+
+
+
+
+    .label {
+
+      position: absolute;
+
+      top: 50%;
+
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      font-size: 14px;
+
+      color: white;
+
+      font-weight: bold;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+    <h1 style ="margin-left: 50%">Fetch</h1>
+
+  <div class="circle circle-left">
+
+    <span class="label">You</span>
+
+  </div>
+
+  <div class="circle circle-right">
+
+    <span class="label">Other friend</span>
+
+  </div>
+
+  <div class="green-circle" id="greenCircle">
+
+    <span class="label">Ball</span>
+
+  </div>
+
+  <div class="big-circle" id="bigCircle">
+
+    <span class="label">Pet</span>
+
+  </div>
+  <div class = "mainGame">
+    <button id = "mainGameBtn" onclick = "window.location.href='./index.html'">Back to Cyberpet game?</button>
+  </div>
+
+
+
+  <script>
+
+    const greenCircle = document.getElementById("greenCircle");
+
+    const bigCircle = document.getElementById("bigCircle");
+
+    const circleLeft = document.querySelector(".circle-left");
+
+    const circleRight = document.querySelector(".circle-right");
+
+
+
+
+    const circleRadius = 50;
+
+    const circleDistance = 200;
+
+    const greenCircleSize = 20;
+
+    const bigCircleSize = 100;
+
+    const gapBetweenCircles = 200;
+
+    const animationSpeed = 5;
+
+
+
+
+    let direction = 1;
+
+
+
+
+    function moveGreenCircle() {
+
+      const circleLeftX = circleLeft.getBoundingClientRect().left;
+
+      const circleRightX = circleRight.getBoundingClientRect().right;
+
+      const greenCircleX = greenCircle.getBoundingClientRect().left;
+
+
+
+
+      if (direction === 1 && greenCircleX >= circleRightX - greenCircleSize - gapBetweenCircles) {
+
+        direction = -1;
+
+      } else if (direction === -1 && greenCircleX <= circleLeftX + gapBetweenCircles) {
+
+        direction = 1;
+
+      }
+
+
+
+
+      greenCircle.style.left = greenCircleX + direction * animationSpeed + "px";
+
+      bigCircle.style.left = greenCircleX + gapBetweenCircles + "px";
+
+      requestAnimationFrame(moveGreenCircle);
+
+    }
+
+
+
+
+    moveGreenCircle();
+
+  </script>
+
+</body>
+
+</html>
